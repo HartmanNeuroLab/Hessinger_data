@@ -1,12 +1,151 @@
 ---
-title: "Hessinger_data"
+title: "Hessinger data analysis"
+author: "Rich Hartman, PhD"
+date: "12/20/2023"
 format: html
 editor: visual
 ---
 
-## Quarto
+## 1. Install required packages (only need to do this once)
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+install.packages("ggplot2"); \# for graphics functions install.packages("car"); \# for the leveneTest() function install.packages("pastecs"); \# for the stat.desc() function install.packages("psych"); \# for the describe() function install.packages("hrbrthemes") install.packages("viridis")
+
+## 2. "Load" the required packages (need to do this every session)
+
+```{r}
+library(car); library(ggplot2); library(pastecs); library(psych); library(hrbrthemes); library(viridis)
+```
+
+## 3. Use Excel to generate a .csv file with "tidy" data (each row = 1 case / subject, 1st row is column names). Import .CSV file into R "dataframe" called "hessingerdata". Then show the "hessingerdata" dataframe (header + 1st 8 data rows) to check it out
+
+```{r}
+hessingerdata <- read.csv(file="./data_clean/Hessinger_master_data.csv", header=TRUE, sep=",")
+hessingerdata
+```
+
+## 4. Create a "subset" dataframe for each group to ease making histograms/normal curves and QQ plots by group.
+
+```{r}
+control_hessingerdata<-subset(hessingerdata, hessingerdata$Group=="control")
+APlow_hessingerdata<-subset(hessingerdata, hessingerdata$Group=="APlow")
+APmed_hessingerdata<-subset(hessingerdata, hessingerdata$Group=="APmed")
+APhigh_hessingerdata<-subset(hessingerdata, hessingerdata$Group=="APhigh")
+DAPlow_hessingerdata<-subset(hessingerdata, hessingerdata$Group=="DAPlow")
+DAPmed_hessingerdata<-subset(hessingerdata, hessingerdata$Group=="DAPmed")
+DAPhigh_hessingerdata<-subset(hessingerdata, hessingerdata$Group=="DAPhigh")
+```
+
+How many subjects are missing data from a specific column? (na = 'missing'). Make a variable that returns 1 (TRUE) if data is missing: 
+
+1 = missing, 0 = there, so mean will tell us proportion of cases missing data in that variable
+
+```{r}
+# sum = number of missing cells
+# mean = proportion of missing cells
+
+sum(is.na(hessingerdata$BodyWgtAVE)); mean(is.na(hessingerdata$BodyWgtAVE))
+sum(is.na(hessingerdata$FecalWgtAVE)); mean(is.na(hessingerdata$FecalWgtAVE))
+sum(is.na(hessingerdata$Urine_mlAVE)); mean(is.na(hessingerdata$Urine_mlAVE))
+sum(is.na(hessingerdata$Water_mlAVE)); mean(is.na(hessingerdata$Water_mlAVE))
+sum(is.na(hessingerdata$FoodAVE)); mean(is.na(hessingerdata$FoodAVE))
+sum(is.na(hessingerdata$DoseAVE)); mean(is.na(hessingerdata$DoseAVE))
+```
+Now, start checking the various aussumptions (normality, homogeneity of variance, etc.) for all *meaningful DVS* - e.g., Average Distance and Distance for days 1-3 are probably important, but Blocks 1-5 from each are *probably* not (?). If the idea is to compare groups, the assumptions need to be tested with each variable broken down by group.
+
+??? is there a "Bonferroni correction" for multiple tests of Normality etc ???
+
+Generate some descriptive stats for the variables of interest.
+
+NOTE: For output reported using "e": e+02, simply "move" the decimal point 2 places to right. e-02 = move decimal 2 places to left...
+
+Can use describe() (from the psych package)
+  or
+stat.desc() function (from the pastecs package) to get some basic stats.
+
+Using stat.desc:
+
+```{r}
+
+# stat.desc()
+# using basic = FALSE adds Shapiro-Wilks test, negating the need to run that separately as with describe()
+
+# Overall DVs (not broken down by group)
+
+stat.desc(cbind(BodyWgtAVE=hessingerdata$BodyWgtAVE,
+                FecalWgtAVE=hessingerdata$FecalWgtAVE,
+                Urine_mlAVE=hessingerdata$Urine_mlAVE,
+                Water_mlAVE=hessingerdata$Water_mlAVE,
+                FoodAVE=hessingerdata$FoodAVE,
+                DoseAVE=hessingerdata$DoseAVE),
+          basic = FALSE, norm = TRUE)
+
+# or
+# stat.desc(watermazedata[, c("Duration.Spatial1",
+#                            "Duration.Spatial2",
+#                            "Duration.Spatial3")], basic = FALSE, norm = TRUE); # ETC
+
+# Broken down by group
+# single variables: by(data = dataFrame$Variable, INDICES = dataFrame$grouping DV, FUN = function)
+# by(data = watermazedata$Duration.Spatial, INDICES = watermazedata$Treatment, FUN = stat.desc)
+# or
+# by(watermazedata$Duration.Spatial, watermazedata$Treatment, stat.desc)
+# or
+# by(watermazedata$Duration.Spatial, watermazedata$Treatment, stat.desc, basic = FALSE, norm = TRUE)
+# multiple variables at once:
+
+by(cbind(Duration.Cued=watermazedata$Duration.Cued,
+         Duration.Spatial1=watermazedata$Duration.Spatial1,
+         Duration.Spatial2=watermazedata$Duration.Spatial2,
+         Duration.Spatial3=watermazedata$Duration.Spatial3,
+         Duration.Spatial=watermazedata$Duration.Spatial,
+         Distance.Cued=watermazedata$Distance.Cued,
+         Distance.Spatial1=watermazedata$Distance.Spatial1,
+         Distance.Spatial2=watermazedata$Distance.Spatial2,
+         Distance.Spatial3=watermazedata$Distance.Spatial3,
+         Distance.Spatial=watermazedata$Distance.Spatial,
+         Speed=watermazedata$Speed,
+         Probe.Entries.1=watermazedata$Probe.Entries.1,
+         Probe.Entries.2=watermazedata$Probe.Entries.2,
+         Probe.Entries.3=watermazedata$Probe.Entries.3,
+         Probe.Entries.Ave=watermazedata$Probe.Entries.Ave,
+         Probe.Percent1=watermazedata$Probe.Percent1,
+         Probe.Percent2=watermazedata$Probe.Percent2,
+         Probe.Percent3=watermazedata$Probe.Percent3,
+         Probe.Percent.Ave=watermazedata$Probe.Percent.Ave,
+         Probe2.Opposite.Percent=watermazedata$Probe2.Opposite.Percent),
+   watermazedata$Treatment, stat.desc, basic = FALSE, norm = TRUE)
+# or
+# by(watermazedata[, c("Duration.Spatial1",
+#                     "Duration.Spatial1",
+#                     "Duration.Spatial3")],; #ETC
+#   watermazedata$Treatment, stat.desc, basic = FALSE, norm = TRUE)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Running Code
 

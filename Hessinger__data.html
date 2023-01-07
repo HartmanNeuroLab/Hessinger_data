@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Rich Hartman, PhD">
+<meta name="dcterms.date" content="2023-12-20">
+
+<title>Hessinger data analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Hessinger__data_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Hessinger__data_files/libs/quarto-html/quarto.js"></script>
+<script src="Hessinger__data_files/libs/quarto-html/popper.min.js"></script>
+<script src="Hessinger__data_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Hessinger__data_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Hessinger__data_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Hessinger__data_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Hessinger__data_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Hessinger__data_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Hessinger__data_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Hessinger data analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Rich Hartman, PhD </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 20, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="install-required-packages-only-need-to-do-this-once" class="level2">
+<h2 class="anchored" data-anchor-id="install-required-packages-only-need-to-do-this-once">1. Install required packages (only need to do this once)</h2>
+<p>install.packages(“ggplot2”); # for graphics functions install.packages(“car”); # for the leveneTest() function install.packages(“pastecs”); # for the stat.desc() function install.packages(“psych”); # for the describe() function install.packages(“hrbrthemes”) install.packages(“viridis”)</p>
+</section>
+<section id="load-the-required-packages-need-to-do-this-every-session" class="level2">
+<h2 class="anchored" data-anchor-id="load-the-required-packages-need-to-do-this-every-session">2. “Load” the required packages (need to do this every session)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car); <span class="fu">library</span>(ggplot2); <span class="fu">library</span>(pastecs); <span class="fu">library</span>(psych); <span class="fu">library</span>(hrbrthemes); <span class="fu">library</span>(viridis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'psych'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:ggplot2':
+
+    %+%, alpha</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:car':
+
+    logit</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: Either Arial Narrow or Roboto Condensed fonts are required to use these themes.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>      Please use hrbrthemes::import_roboto_condensed() to install Roboto Condensed and</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>      if Arial Narrow is not on your system, please see https://bit.ly/arialnarrow</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: viridisLite</code></pre>
+</div>
+</div>
+</section>
+<section id="use-excel-to-generate-a-.csv-file-with-tidy-data-each-row-1-case-subject-1st-row-is-column-names.-import-.csv-file-into-r-dataframe-called-hessingerdata.-then-show-the-hessingerdata-dataframe-header-1st-8-data-rows-to-check-it-out" class="level2">
+<h2 class="anchored" data-anchor-id="use-excel-to-generate-a-.csv-file-with-tidy-data-each-row-1-case-subject-1st-row-is-column-names.-import-.csv-file-into-r-dataframe-called-hessingerdata.-then-show-the-hessingerdata-dataframe-header-1st-8-data-rows-to-check-it-out">3. Use Excel to generate a .csv file with “tidy” data (each row = 1 case / subject, 1st row is column names). Import .CSV file into R “dataframe” called “hessingerdata”. Then show the “hessingerdata” dataframe (header + 1st 8 data rows) to check it out</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>hessingerdata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">"./data_clean/Hessinger_master_data_groups.csv"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">","</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>hessingerdata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   AnimalID   Group Replicate BodyWgt1 BodyWgt2 BodyWgt3 BodyWgt4 BodyWgt5
+1   2018.10 control         A    219.4    233.3    242.5   256.50    266.6
+2   2018.20 control         A    218.3    230.1    242.6   250.80    260.5
+3   2018.30 control         A    222.4    228.3    243.7   251.30    257.7
+4   2018.13 control         B    228.5    245.5    253.0   263.10    272.0
+5   2018.14 control         B    202.6    211.0    220.1   226.90    240.2
+6   2018.15 control         B    233.4    247.3    257.8   265.00    276.2
+7   2018.25 control         C    209.7    215.0    227.7   201.30    224.2
+8   2018.26 control         C    230.1    230.3    241.9   249.70    252.7
+9   2018.27 control         C    250.7    258.8    268.1   273.10    277.6
+10  2018.37 control         D    206.4    214.8    222.5   229.80    237.2
+11  2018.38 control         D    212.5    220.9    228.2   241.80    244.4
+12  2018.39 control         D    235.8    246.4    254.6   269.00    275.8
+13  1004.00 control         E    270.5    242.4    256.4   262.50    261.2
+14  1009.00 control         E    266.0    236.3    244.9   254.80    256.7
+15  1012.00 control         E    254.3    236.2    243.8   247.50    250.0
+16  1138.00 control         F    228.2    235.0    234.5   233.70    240.0
+17  1141.00 control         F    251.4    249.4    255.3   259.00    258.6
+18  1144.00 control         F    228.2    223.4    236.6   237.20    241.3
+19  2018.40   APlow         A    225.6    229.4    243.7   247.90    255.7
+20  2018.50   APlow         A    205.4    210.6    220.5   225.70    232.6
+21  2018.60   APlow         A    236.7    240.1    247.0   252.10    257.8
+22  2018.16   APlow         B    220.5    209.2    220.4   227.60    241.4
+23  2018.17   APlow         B    215.4    221.9    226.3   230.40    239.8
+24  2018.18   APlow         B    208.2    213.8    219.1   223.30    231.8
+25  2018.28   APlow         C    216.3    211.0    220.9   227.50    231.3
+26  2018.29   APlow         C    219.2    220.9    225.8   226.70    231.0
+27  2018.30   APlow         C    239.1    238.2    251.7   254.30    255.8
+28  2018.40   APlow         D    192.0    187.7    188.0   194.00    202.5
+29  2018.41   APlow         D    219.4    218.3    222.4   224.00    238.0
+30  2018.42   APlow         D    228.5    225.7    232.5   237.30    243.6
+31  2018.70   APmed         A    208.0    202.5    202.9   202.10    209.7
+32  2018.80   APmed         A    199.5    195.7    198.3   203.30    211.7
+33  2018.90   APmed         A    220.8    208.1    199.9   194.30    191.7
+34  2018.19   APmed         B    216.1    205.7    204.7   210.40    220.6
+35  2018.20   APmed         B    222.7    204.9    204.9   207.30    215.0
+36  2018.21   APmed         B    205.3    193.8    193.9   197.10    205.9
+37  2018.31   APmed         C    222.9    209.5    206.3   213.60    216.4
+38  2018.32   APmed         C    230.2    208.9    200.8   192.90    189.2
+39  2018.33   APmed         C    225.8    215.2    222.0   222.30    225.8
+40  2018.43   APmed         D    208.8    193.8    192.2   196.30    200.4
+41  2018.44   APmed         D    213.6    200.0    196.0   197.10    203.6
+42  2018.45   APmed         D    225.9    212.7    209.4   215.50    215.5
+43  2018.10  APhigh         A    189.5    177.6    168.6   161.70    156.1
+44  2018.11  APhigh         A    240.1    225.0    221.4   216.90    215.3
+45  2018.12  APhigh         A    209.7    194.3    184.1   177.00    169.5
+46  2018.22  APhigh         B    211.6    194.7    186.2   178.20    178.8
+47  2018.23  APhigh         B    220.3    199.4    186.4   177.60    170.6
+48  2018.24  APhigh         B    219.6    196.3    187.7   179.80    171.9
+49  2018.34  APhigh         C    220.7    199.5    188.8   179.00    168.8
+50  2018.35  APhigh         C    223.6    197.8    190.5   181.30    176.9
+51  2018.36  APhigh         C    234.9    211.8    201.1   190.80    187.7
+52  2018.46  APhigh         D    204.2    184.5    176.3   168.70    160.3
+53  2018.47  APhigh         D    223.1    199.1    191.1   184.80    180.5
+54  2018.48  APhigh         D    228.0    206.9    198.4   191.40    187.0
+55  1002.00  DAPlow         E    267.0    231.1    238.2   244.00    249.0
+56  1008.00  DAPlow         E    266.1    230.0    239.5   243.70    248.4
+57  1013.00  DAPlow         E    254.1    229.6    238.4   245.60    240.4
+58  1134.00  DAPlow         F    238.0    233.6    243.0   244.90    243.4
+59  1140.00  DAPlow         F    233.9    231.0    239.7   240.00    239.5
+60  1143.00  DAPlow         F    231.6    223.8    236.3   237.00    240.9
+61  1006.00  DAPmed         E    236.2    212.2    211.6   214.70    217.6
+62  1010.00  DAPmed         E    225.5    203.6    202.2   206.50    216.8
+63  1011.00  DAPmed         E    232.4    203.1    210.0   212.30    216.5
+64  1133.00  DAPmed         F    230.0    212.2    214.4   211.50    210.9
+65  1135.00  DAPmed         F    231.0    211.0    222.5   224.00    230.8
+66  1136.00  DAPmed         F    236.7    230.0    242.5   240.60    246.4
+67  1003.00 DAPhigh         E    152.5    197.9    186.5   176.00    153.9
+68  1005.00 DAPhigh         E    220.0    199.4    193.3   186.40    193.9
+69  1007.00 DAPhigh         E    228.0    205.6    198.4   186.00    196.4
+70  1137.00 DAPhigh         F    237.0    213.5    203.5   191.50    184.5
+71  1139.00 DAPhigh         F    249.5    216.4    204.5   190.50    178.7
+72  1142.00 DAPhigh         F    226.0    198.8    190.0   170.47    165.0
+   BodyWgt6 BodyWgt7 BodyWgt8 BodyWgt9 BodyWgt10 BodyWgt11 BodyWgt12 BodyWgt13
+1     277.7    294.5    301.8    312.6     320.2     334.2       342     352.8
+2     270.0    291.5    302.6    309.3     323.4     330.2     337.1     349.8
+3     271.0    289.2    296.0    307.7     308.4     323.1       328     333.2
+4     279.4    293.8    308.6    315.6     321.4     327.6     335.6     343.3
+5     247.1    258.1    264.1    276.4     283.6     285.9       292     300.1
+6     277.3    296.3    306.1    314.2     330.2     330.7     336.9     346.7
+7     237.6    251.9    262.4    267.7     272.1     285.7     265.2     279.5
+8     259.1    273.6    277.8    287.3     289.2     293.1     302.9     298.8
+9     291.0    300.9    310.6    324.7     328.2     340.7     347.4     347.2
+10    250.1    263.5    271.0    275.9     280.1     286.3     295.2     300.8
+11    254.5    267.7    280.5    284.1     289.4     291.1     296.1     301.1
+12    288.8    295.1    304.5    318.9     321.4     325.2       335     343.9
+13    268.9    270.5    281.1    287.0       290     276.3       280     280.7
+14    263.6      266    273.5    273.0     272.1     278.7       279       278
+15    255.1    254.3    261.7    263.7       262     259.4     268.2       273
+16    249.9    243.5    251.5    253.0     254.8     260.4     257.5       269
+17    272.8      270    278.0    273.0       284     284.8     283.5     292.4
+18    249.6      249    254.1    253.6     259.8     261.4     266.2     275.1
+19    263.2    277.5    286.1    302.1     303.3     314.7     318.2     327.9
+20    238.5      250    264.3    269.8     279.4     288.6     294.2     306.8
+21    263.2    280.5    290.3    302.1       304     315.0     318.2     326.8
+22    242.8    239.1    260.2    268.5     275.6     279.5     287.9     294.2
+23    242.4    237.9    264.8    269.8     277.7     284.2     286.5     295.3
+24    233.2    226.7    252.6    258.4     264.2     271.1     276.8     284.9
+25    238.5    247.3    261.1    266.3     274.7     279.4     283.9     283.5
+26    236.6    255.3    255.0    266.1     265.6     272.2     277.3     277.7
+27    263.2    285.3    291.1    301.3     309.1     319.4       325     327.6
+28    208.0    219.3    227.8    229.9     236.2     239.5       247     252.7
+29    247.7    259.5    268.2    274.7     279.7     286.6     293.4       300
+30    252.5      269    275.0    282.5     286.9     292.1     302.3     308.1
+31    215.3      233    240.4    250.3     256.5     263.9     269.4     280.5
+32    215.7   231..3    241.8    248.7       256     265.0     269.8       282
+33    192.0    207.9    219.1    227.3     239.1     246.1     256.8     264.7
+34    224.2    232.2    245.6    248.5     255.1     261.3     263.7     238.1
+35    222.0    227.9    246.6    251.1     256.4     264.8     270.1     275.5
+36    209.0    208.8    231.4    240.2     243.6     249.0     254.3     262.6
+37    221.9    238.4    244.3    253.4     259.1     266.0     273.4     276.5
+38    189.3      211    222.5    228.4     230.1     234.6     241.2     248.2
+39    229.0    238.5    248.9    252.7     259.7     263.7     268.8     272.2
+40    206.5      218    225.0    231.7     237.7     243.8     251.5    261.1.
+41    213.5    230.6    240.8    247.5     256.5     258.5     268.7     274.7
+42    221.6      243    244.1    250.3     258.5     236.5     270.6       280
+43    152.1      154    160.1    166.2        --     116.3        --       176
+44    214.9      228    234.6    241.6       249     253.6     257.6     265.8
+45    162.1    157.7    162.0    167.3     170.6     171.6       176       180
+46    176.0    186.4    197.4    213.0     221.1     224.3     231.2     234.9
+47    160.4    155.9    156.4    160.2     162.3     167.4     170.5     172.2
+48    164.2      164    160.2    159.5     161.1     160.1     159.5     160.2
+49    160.6      145    139.5    132.9     129.2     124.9       122     120.3
+50    173.4    169.1    176.6    182.5     191.6     195.2       204     209.9
+51    183.6    191.2    198.5    196.1     200.6     204.2     210.8     217.8
+52    154.9      144    144.9    139.1     139.8     138.6     137.8     136.7
+53    180.2    186.7    192.0    197.2     203.6     208.6     215.2       222
+54    181.9      187    197.5    197.1     199.4     205.0       205     209.5
+55    259.7      267    270.0    275.0     275.2     279.5     285.2       285
+56    256.0    266.1    271.0    273.6     275.8     280.5     281.6     277.5
+57    250.0    254.1    264.0    265.2    268.72     265.0       270     273.5
+58    248.7      241    256.6    253.8     263.3     260.4     262.1     267.1
+59    249.5    245.5    252.0    251.6       257     257.7     260.5     269.1
+60    250.5      247    252.5    252.0     259.3     283.5     262.1     276.3
+61    224.0    236.2    239.6    242.0       249     258.9       250       252
+62    220.0    225.5    226.8    233.3       233     237.3     236.7     238.4
+63    223.0    232.4    236.5    236.6     242.1     243.3     248.3     246.4
+64    206.5    216.7    219.5    224.5     224.6     233.1     232.8     241.5
+65    226.9    241.5    243.0    255.0       259     263.5     248.4     269.4
+66    252.0      247    255.5    262.0       264     267.3     267.5     279.5
+67    158.6    152.5    167.5    197.1     200.1     215.6     197.3       200
+68    210.0      220    226.2    228.4     235.7     242.4     243.4     244.5
+69    216.7      228    233.0    232.7     240.5     242.1       243     248.5
+70    202.6      219    227.5    223.5       227     235.8     240.5     246.2
+71    171.0    172.8    200.0    219.5     222.5     230.0     236.8     247.3
+72    158.6    185.7    183.5    198.0       201     204.3     208.6     214.4
+   BodyWgtAVEwk1 BodyWgtAVE FecalWgt1 FecalWgt2 FecalWgt3 FecalWgt4 FecalWgt5
+1       261.8500   288.7769      14.5     11.40      9.40      9.20     11.00
+2       257.5833   285.8615       9.6      9.70      9.50      9.60     10.20
+3       256.8667   281.5385      10.3      9.00     10.00     13.60      9.00
+4       267.8000   291.3385       6.6      8.30      7.20      7.90      9.30
+5       233.9000   254.4692       9.9      8.00      8.90      8.20      9.60
+6       269.9833   293.7000      12.9     22.30     18.60     18.00     19.90
+7       226.2833   246.1515       5.9      5.80      1.50     10.00      9.30
+8       251.2167   268.1923      11.1      8.40      6.40      7.00      8.50
+9       278.2500   301.4615      13.6     11.10     12.30     10.50        NA
+10      236.3167   256.4308       8.5      7.90      6.50      8.60      8.30
+11      242.9167   262.4846      12.5      9.50      7.00     10.00      8.30
+12      271.6167   293.4154      15.2     11.90     11.80     13.80      9.50
+13      260.3167   271.3462     14.53     14.21     11.90      5.74      6.90
+14      253.7167   264.8154     12.44     13.26     12.73      8.85      8.52
+15      247.8167   256.0923     13.82     13.42     14.32      7.32      7.04
+16      239.4333   247.0000     18.57     10.96     14.43     11.75     14.21
+17      260.8500   270.1692     15.02     12.64      8.72     12.29     10.84
+18      239.5167   248.8846      18.7      9.77     11.88      9.22      8.79
+19      252.9000   276.5615      12.4     11.00     10.40     12.30     11.80
+20      229.6500   252.8000        10      8.70      7.00      7.80      8.40
+21      256.7833   279.5231      11.2      9.00      9.40      8.80      7.90
+22      230.0833   251.3000       5.8      6.80      8.00      8.00      7.90
+23      233.1167   253.2615         7      9.80      7.60      7.60      6.90
+24      224.6500   243.3923       6.8      7.30      7.50      5.40      5.80
+25      229.4167   249.3615       8.4      6.30      8.60     10.30      7.70
+26      232.7167   248.4154       6.6      7.30      7.40      9.20      6.90
+27      258.0833   281.6231       9.3      8.80      8.40      9.20      8.50
+28      199.9167   217.2769       8.9      8.60      8.10      6.70      6.00
+29      234.9833   256.3000      12.2      9.60      9.30      9.10      6.30
+30      243.4333   264.3077     [3.26      6.90      7.70      7.50      5.50
+31      210.9167   233.4231       8.4      6.50      5.40      6.00      6.20
+32      204.9400   232.2917       6.4      4.60      6.60      5.90      5.90
+33      198.9833   220.6000       9.5      4.00      2.30      2.10      2.30
+34      216.3000   232.7846       9.3      5.40      6.00      7.70      7.20
+35      213.6667   236.0923       4.9      4.50      4.30      5.20      5.50
+36      201.4167   222.6846       4.9      4.20      5.10      4.90      5.20
+37      217.6800   238.5908       6.5      3.10      5.50      6.30      5.00
+38      198.6833   217.4846         6      0.90      1.10      1.30      1.80
+39      225.4667   241.8923       6.2      5.60      6.00      7.10      6.20
+40      201.2000   217.1417       7.4      4.30      4.40      6.20      6.00
+41      206.8000   230.8538       6.8      3.10      3.20      2.90      4.70
+42      219.6167   237.2000       8.5      4.00      5.00      5.80      5.60
+43      161.6833   161.6545       7.1      2.80      1.40      1.10      1.60
+44      220.2500   235.6769       7.5      5.90      2.90      3.40      3.80
+45      174.1167   175.5308                2.30      1.40      1.30      1.10
+46      183.3833   202.6000       5.6      2.50      2.10      1.10      2.00
+47      175.0500   173.8154       6.8      2.00      1.50      0.70      1.40
+48      177.3167   172.6231       6.2      1.10      0.90      0.50      0.80
+49      173.6167   156.2462       4.4      1.80      1.10      0.90      0.40
+50      181.5000   190.1846       5.7      1.60      1.20      1.40      1.40
+51      194.3667   202.2385       5.4      1.60      1.20      1.30      2.60
+52      164.7833   156.1385       5.5      2.50      1.30      1.00      0.80
+53      187.0667   198.7769         7      1.70      1.60      1.80      1.10
+54      192.1000   199.5462       5.1      2.80      1.00      0.80      1.00
+55      248.1667   263.5308     12.14      9.54     10.93      4.53      6.41
+56      247.2833   262.2923     11.82      9.31     13.23      3.75      9.18
+57      243.0167   255.2785     13.21     10.80     13.37      7.02      5.88
+58      242.4333   250.4538     11.65      7.57      9.27      9.06      7.04
+59      240.8667   248.2308     13.51      7.66      9.50      8.76      9.46
+60      239.2500   250.2154     10.51      6.95      8.78     10.36      8.47
+61      219.3833   234.1538      7.55      8.74      8.48      4.33      6.92
+62      212.4333   223.5077      8.28      5.69      7.02      4.01      6.22
+63      216.2167   229.4538     10.96      5.05      9.37      5.40      6.59
+64      212.0333   221.4000      9.95      4.93      6.50      6.25      6.00
+65      226.1167   240.4615     10.31      5.21      9.17      7.54      9.66
+66      243.0833   253.1538     13.97      7.38     10.71      9.82      7.74
+67      170.9000   181.1923      9.14      2.22      0.72      0.66      0.76
+68      200.5000   218.7385       5.9      2.44      2.34      1.65      4.58
+69      205.1833   222.9923      7.08      2.23      1.63      1.10      5.26
+70      202.4333   219.3923      7.33      2.46      2.79      1.55      3.90
+71      188.9833   210.7308      9.34      2.54      1.58      0.96      0.48
+72      178.0950   192.6438      8.54      2.30      2.19      0.81      1.42
+   FecalWgt6 FecalWgt7 FecalWgt8 FecalWgt9 FecalWgt10 FecalWgt11 FecalWgt12
+1         NA      9.80     11.50     11.90      12.30      13.20      12.60
+2         NA     11.90      8.90     12.70      12.20       9.10      10.90
+3         NA      9.50      9.60     11.10       8.30       9.90      10.30
+4         NA     13.30     11.20     12.20      14.10         NA      14.00
+5         NA     14.90      9.20     11.80      11.70         NA      13.10
+6         NA     15.80     10.80     13.80      17.40         NA      15.50
+7         NA      7.90      8.40      6.40         NA      10.60         NA
+8         NA      8.30      6.90      7.70      10.40       7.10       4.50
+9         NA     10.60     13.90     11.00      14.20      12.40       6.00
+10        NA      5.00      7.00     10.10      10.50       8.80       9.60
+11        NA     10.30      7.60     10.00      11.30       9.50       7.60
+12        NA      6.60     10.90     12.00      10.10       9.80      10.00
+13     13.53      9.85     11.21     13.29       9.27       8.38       9.98
+14     17.43     12.99     13.12     15.12      12.08      14.95      11.00
+15     14.78     10.30     12.09     11.48       9.53       8.44      10.27
+16      5.71      7.21     14.52     12.57      10.08      11.26      10.28
+17      6.89      7.66     13.21      6.74       9.54      10.78      10.03
+18      5.94      6.30     12.82      7.72       9.32      10.29       7.82
+19        NA     11.00     10.20     12.40       9.70      14.30      12.20
+20        NA      9.50      7.70      9.40       9.00      11.40       9.10
+21        NA      4.20     11.60      8.60      10.20      11.40       9.40
+22        NA      7.30      9.20      9.40       9.50         NA      10.00
+23        NA      6.70     10.30      7.90       9.70         NA       7.20
+24        NA      5.70      6.10      7.70       5.70         NA       6.40
+25        NA      8.90      9.00      8.10      11.20       7.90       4.10
+26        NA      7.20      7.50      8.10       9.00       9.40       4.30
+27        NA      9.90     10.40     11.20      10.20      12.30       7.40
+28        NA      5.50      6.00      7.00       6.00       7.00       6.80
+29        NA      8.90      8.40      8.70       8.90       9.80       6.40
+30        NA     10.60      6.40     12.10       7.80       8.30       9.50
+31        NA      9.40      7.80      9.40       9.50       9.10       8.20
+32        NA      6.10      7.80      7.80       7.70       9.60       7.60
+33        NA      6.80      8.00      9.30      10.00      10.00      10.10
+34        NA      8.80      9.00      7.60       8.80         NA       8.30
+35        NA      7.70      8.10      7.70       9.60         NA       8.60
+36        NA      6.50      7.80      8.40       8.10         NA       8.70
+37        NA      8.50      7.90      6.90       8.10       9.10       5.40
+38        NA      9.00      8.40      8.10       5.90       9.40       5.70
+39        NA      7.70      4.80      6.70       8.20       8.00       5.10
+40        NA      7.60      6.60      7.00       8.10       8.20       8.50
+41        NA      7.30      8.10      8.00       9.90       7.70       7.20
+42        NA      8.10      7.00      7.40       8.00       6.70       7.30
+43        NA      5.60        NA        NA       7.40       7.50       5.80
+44        NA      4.40      7.00      7.80       6.90         NA       7.60
+45        NA      2.90      4.70      5.90       7.30       6.10       8.30
+46        NA      6.80      7.10      7.80       8.50         NA       8.40
+47        NA      2.50      5.50      3.80       4.50         NA       2.80
+48        NA      4.00      3.00      3.60       3.20         NA       2.60
+49        NA      0.90      0.90      1.40       1.90      11.40       1.40
+50        NA      2.60      4.90      4.30       6.40       5.70       5.80
+51        NA      4.60      4.60      4.80       5.30       6.50       3.80
+52        NA      1.90      2.10      1.80       2.60       2.50       2.30
+53        NA      7.00      5.70      5.90       7.40       4.90       6.20
+54        NA      3.30      3.20      3.80       4.40       4.40       4.60
+55     15.76     10.91     11.94     12.76      12.31      12.63       9.69
+56     14.90     12.04     12.96     13.77      12.27      13.60      10.43
+57     14.96     13.89     14.53     17.14      11.66      11.99      12.13
+58      6.57      6.14     10.65      5.09       8.42       6.78       8.21
+59      5.42      5.82     11.31      7.39       8.64      10.63       7.85
+60      6.13      5.62     10.86      7.85       6.60       9.36       7.17
+61      8.96      9.44      9.45     10.94      22.53       7.81      12.27
+62      9.55     10.09      8.02      8.85       8.19      10.18       9.23
+63     11.59      9.55      9.44     12.66      11.12       8.49      10.82
+64      4.22      4.46      8.42      5.49       6.53       7.60       6.64
+65      6.47      6.07     10.88      8.36       8.54       7.30      11.43
+66      5.35      5.88     18.06      6.55       8.83      11.04       7.13
+67      1.62      3.56      8.54      9.78       5.86       9.24       5.98
+68      8.32      7.25      7.49      9.83       9.10       9.19       8.29
+69     11.89      9.03      8.22     10.67      10.85       8.12       9.79
+70      5.79      5.63     10.74      9.64       8.30      10.33         NA
+71      1.89      4.04     10.73      8.98       9.77      11.16      10.43
+72      3.08      2.85      8.33      6.36       8.90       9.23       7.35
+   FecalWgtAVEwk1 FecalWgtAVE Urine_ml1 Urine_ml2 Urine_ml3 Urine_ml4 Urine_ml5
+1       11.100000   11.527273     23.00     23.00     15.00     15.00     16.50
+2        9.720000   10.390909     17.00     12.50     13.00     14.00     12.50
+3       10.380000   10.054545     16.00     14.00     15.50     14.00     13.50
+4        7.850000   10.405000     11.50     15.00     12.50     14.00     15.50
+5        8.928000   10.527000     14.50     11.00     10.50     10.00     11.00
+6       18.350000   16.498000     12.00     11.00      3.00      7.00     11.50
+7        6.486000    7.296667     31.50     17.00        NA     16.00     22.50
+8        8.288000    7.851818     27.00     24.00     15.50     15.00     12.00
+9       11.867500   11.543000     11.00     17.00     16.50     15.50        NA
+10       7.950000    8.247273     20.00     14.00     12.00     19.50     10.00
+11       9.462000    9.410909     22.00     15.00     14.50     16.50     11.50
+12      12.428000   11.054545     23.00     20.00     17.50     16.50     14.00
+13      11.135000   10.732500     20.57     15.57     14.79        NA        NA
+14      12.205000   12.707500     25.32     15.94     16.64        NA        NA
+15      11.783333   11.067500     24.95     22.10     20.23        NA        NA
+16      12.605000   11.795833     11.21     11.36     11.57     10.33      6.95
+17      11.066667   10.363333     16.69      9.53     10.74      9.99      6.75
+18      10.716667    9.880833     23.51     14.77     15.96     13.71      9.62
+19      11.580000   11.609091     14.00     14.50     13.00     13.00     12.50
+20       8.380000    8.909091     13.00     12.50     12.00     12.50     11.80
+21       9.260000    9.245455     13.00     11.50     10.00      8.00      9.50
+22       7.292000    8.181000     11.00      8.00      8.00      8.00      9.50
+23       7.778000    8.068000     15.00     14.00     11.50     11.00     11.50
+24       6.546000    6.432000     14.00     11.00     10.00      9.50     10.00
+25       8.276000    8.232727     15.00     10.50      9.50      8.50      8.50
+26       7.484000    7.524545     12.00     11.00     10.00     10.50      8.00
+27       8.858000    9.611818     18.00     13.00     16.50     13.00     10.50
+28       7.636000    6.951818     17.50     14.50     12.00     10.00      7.50
+29       9.306000    8.879091     13.00      7.00      6.00      4.00      3.20
+30       6.912500    8.227000     13.00      8.00      6.50      5.50      4.50
+31       6.500000    7.809091     13.00      5.00      4.00      3.50      3.40
+32       5.880000    6.909091     13.00      4.50      5.00      4.00      3.80
+33       4.040000    6.763636      8.00      3.50      2.50      2.00      2.50
+34       7.116000    7.809000     11.50      8.00      7.00      7.50      8.00
+35       4.868000    6.609000      8.50      6.50      5.50      6.00      8.50
+36       4.838000    6.368000      8.50      3.50      2.70      2.00      3.50
+37       5.268000    6.564545      8.00      4.00        NA      2.20      1.70
+38       2.228000    5.240000     14.00      5.00      1.40      1.00      0.80
+39       6.208000    6.516364      9.50      5.50      4.00      2.50      2.00
+40       5.682000    6.760000     10.50      4.00      3.00      2.00      1.60
+41       4.134000    6.247273      9.50      3.10      2.00      1.70      2.60
+42       5.760000    6.664545     11.00      4.10      2.20      1.80      1.50
+43       2.800000    4.477778      9.00      5.00      2.50      1.00      2.00
+44       4.700000    5.720000     15.00      6.50      3.00      1.00      1.20
+45       1.512500    4.125000        NA      3.00      1.00      1.00      1.50
+46       2.662000    5.185000      8.00      1.80      1.00      0.90      1.00
+47       2.456000    3.136000     11.00      3.20      2.50      2.20      3.10
+48       1.904000    2.590000     11.50      2.60      1.60      1.10      1.70
+49       1.722000    2.394545      9.50      0.90      3.00      0.20      0.50
+50       2.248000    3.724545     14.00      2.80      1.30      0.80      0.50
+51       2.406000    3.772727      9.00      3.40      0.80      0.50      0.80
+52       2.200000    2.197273      7.00      1.30      0.70      0.50      0.50
+53       2.652000    4.571818     12.00      2.00      0.60      0.50      0.50
+54       2.130000    3.107273      9.00      1.70      0.40      0.50      0.50
+55       9.885000   10.795833     10.56      5.62      4.71        NA        NA
+56      10.365000   11.438333      9.37      5.90      6.53        NA        NA
+57      10.873333   12.215000        NA        NA        NA        NA        NA
+58       8.526667    8.037500     14.17      7.51      7.61      8.43      5.71
+59       9.051667    8.829167     18.44      7.87      9.20      5.42      3.90
+60       8.533333    8.221667     14.30      9.58     10.38      8.89      6.81
+61       7.496667    9.785000      7.51      6.64      3.33        NA        NA
+62       6.795000    7.944167      6.87      3.07      1.57        NA        NA
+63       8.160000    9.253333      7.65      1.33      4.41        NA        NA
+64       6.308333    6.415833      7.10      5.13      4.65      4.70      3.88
+65       8.060000    8.411667      5.89      1.44      3.33      1.58      0.92
+66       9.161667    9.371667     22.49      7.34      8.68      4.74      2.51
+67       2.520000    4.840000      4.40      0.66      0.57        NA        NA
+68       4.205000    6.365000      6.54      1.16      0.86        NA        NA
+69       4.865000    7.155833      5.44      0.59      0.53        NA        NA
+70       3.970000    6.223636      9.08      0.80      0.15      0.36      0.48
+71       2.798333    5.991667      5.79      0.10      1.58      0.96      2.67
+72       3.056667    5.113333      8.58      0.40      0.30      0.35      0.24
+   Urine_ml6 Urine_ml7 Urine_ml8 Urine_ml9 Urine_ml10 Urine_ml11 Urine_ml12
+1         NA     23.50     25.50     23.00      19.00      23.00      21.50
+2         NA     19.00     21.50     17.50      19.50      16.50      16.00
+3         NA     19.00     19.00     18.50      16.00      17.50      15.00
+4         NA     14.00     25.50     12.50      13.00      23.00       7.00
+5         NA     16.50      8.50     13.00      15.50      16.50      10.50
+6         NA     18.00     13.20     17.50      19.00      17.50      13.00
+7         NA     19.50      9.50     10.50         NA         NA         NA
+8         NA     22.50     18.50     15.50      19.00      16.00      10.50
+9         NA     15.00     20.00     25.00      22.50      21.50      15.00
+10        NA     16.00     16.50     16.50      18.00      15.00      12.50
+11        NA     17.50     17.00     18.50      19.00      16.00      13.00
+12        NA     17.00     18.50     20.50      18.50      16.50      14.00
+13     19.53     20.20     17.80     17.06       8.05      10.02       8.83
+14     18.99     16.55     18.22     19.75      11.56      11.01      10.52
+15     26.81     18.95     16.65     21.80      11.83       9.78      10.59
+16        NA        NA     18.66     11.48      12.18       9.57       6.65
+17        NA        NA     24.64     13.56      14.96      11.29       9.34
+18        NA        NA     21.78     14.88      12.82      16.04      10.37
+19        NA     15.00     14.50     17.50      15.50      14.50      14.00
+20        NA     13.00     14.00     13.50      12.50      13.00      10.00
+21        NA      0.50        NA        NA       7.50       8.50       6.00
+22        NA      9.50     12.00     13.00      11.50      14.50       7.50
+23        NA     13.00     12.50     10.50      11.50      13.00       8.00
+24        NA     12.50     13.00     13.50      10.50       8.50       9.50
+25        NA      7.00      9.50      7.00         NA      10.50       7.00
+26        NA     12.00     13.50     13.00      11.00       8.00       7.00
+27        NA     13.50     14.00     16.00      15.50      17.00      13.00
+28        NA     10.00     12.00      7.50       8.00       7.00       5.50
+29        NA      9.00     10.50      8.50       9.00       4.50       5.00
+30        NA      6.00      7.00      7.00       7.00       8.00       5.50
+31        NA     12.00      9.50     11.00       7.50       7.50       7.50
+32        NA      2.40      8.00      5.00       6.00       4.00       2.00
+33        NA      8.50     11.00      6.50       5.00       5.50       6.00
+34        NA     10.50     11.50      9.50      11.00       7.50       7.50
+35        NA      9.50     13.00     11.50      11.00       4.00       6.00
+36        NA      7.50      8.50      9.00       5.00       5.50       3.50
+37        NA      8.50      6.00      5.00       4.50       3.50         NA
+38        NA     10.50     12.00     13.00      11.50       9.00       4.50
+39        NA      6.00      3.00      7.00         NA         NA         NA
+40        NA      8.50      8.50      8.50       6.00       5.00       3.50
+41        NA      6.00      7.00      6.50       6.00       5.00       4.00
+42        NA     12.00      8.00      6.50       7.00       3.50       2.00
+43        NA      7.00      5.30        NA       2.00       4.50       2.20
+44        NA      2.00      4.50      6.00       5.00       2.70       2.70
+45        NA      2.50      3.50      5.00       6.50       2.60       2.50
+46        NA      6.50      3.00      6.00       5.00       4.50       3.50
+47        NA      3.60      4.00      3.80       3.30       2.70       3.30
+48        NA      5.00      3.10      3.80       3.80       2.60       0.40
+49        NA      0.00      1.20      0.60       0.50       0.00       1.00
+50        NA      1.00      3.20      6.00       7.50       9.50       0.50
+51        NA      5.50      4.10      3.00       2.30       0.90       7.50
+52        NA      1.10      3.50      1.20       1.00       0.60       0.50
+53        NA      3.10      1.60      1.80       2.00       2.30       2.60
+54        NA      2.80      2.60      1.60       0.50       0.50         NA
+55     13.56      9.84      7.67      6.56       5.88       2.73       0.62
+56     11.36      9.95      8.79      9.42         NA       6.38       4.35
+57      9.00      6.04      9.06      3.95       6.22       9.61       4.99
+58        NA        NA     14.08      8.98       7.95       7.47       5.84
+59        NA        NA     11.86      8.09       8.74       5.90       2.95
+60        NA        NA     11.36      9.64       8.51       6.75       5.39
+61      8.91      8.53      7.01      7.91       3.85       6.34       3.30
+62      7.77      5.66      3.06      0.93       0.30       0.84       0.00
+63      8.23      7.65      6.14      5.26       3.09       1.33       2.08
+64        NA        NA      6.29      6.08       3.20       3.44       2.63
+65        NA        NA      6.93      3.29       2.77       2.42       0.68
+66        NA        NA      9.45      8.94       7.02       7.10       5.20
+67      1.70      2.22      0.52      0.75       0.49       5.41       0.04
+68        NA      5.22      3.48      3.32       2.56       3.60       0.35
+69      9.42      8.30      4.42      1.48       3.24       1.94       0.30
+70        NA        NA      7.56      5.80       5.04       5.19       1.03
+71        NA        NA      1.23        NA       8.16       4.92       4.02
+72        NA        NA      5.38      3.29       3.94       4.45       3.11
+   Urine_mlAVEwk1 Urine_mlAVE Water_ml1 Water_ml2 Water_ml3 Water_ml4 Water_ml5
+1       18.500000   20.727273     46.00     42.00        40     46.00     47.00
+2       13.800000   16.272727     30.00     49.00        46     49.00     38.00
+3       14.600000   16.181818     30.00     41.00        52     54.00     42.00
+4       13.700000   14.863636     37.00     45.00        38     38.00     41.00
+5       11.400000   12.500000     37.00     38.00        36     38.00     75.00
+6        8.900000   12.971818     49.00     54.00        49     47.00     25.00
+7       21.750000   18.071429     53.00     44.00        --     60.00     56.00
+8       18.700000   17.772727     49.00     60.00        50     51.00     51.00
+9       15.000000   17.900000     43.00     46.00        46     46.00     51.00
+10      15.100000   15.454546     47.00     40.00        35     53.50     44.00
+11      15.900000   16.409091     45.00     37.00        39     53.00     39.00
+12      18.200000   17.818182     51.00     47.00        49     53.00     49.00
+13      17.615000   15.242000     48.01     40.93     41.97        NA        NA
+14      19.222500   16.450000     49.93     42.14     48.64        NA        NA
+15      23.522500   18.369000     53.44     42.54     46.58        NA        NA
+16      10.284000   10.996000     50.53     41.49     39.39     43.47     43.70
+17      10.740000   12.749000     45.74     37.64     36.65     35.72     37.81
+18      15.514000   15.346000     71.42     31.96      64.7     33.21     65.67
+19      13.400000   14.363636     34.00     50.00        45     37.50     36.00
+20      12.360000   12.527273     27.00     55.00        23     29.00     25.00
+21      10.400000    8.277778     30.00     54.00        27     30.00     27.00
+22       8.900000   10.227273     15.00     28.00        28     33.00     26.00
+23      12.600000   11.954546     35.00     33.00        32     35.00     28.00
+24      10.900000   11.090909     30.00     32.00        32     30.00     28.00
+25      10.400000    9.300000     28.00     35.00        32     36.00     32.00
+26      10.300000   10.545454     28.00     31.00        30     34.00     29.00
+27      14.200000   14.545454     34.00     42.00        36     50.00     36.00
+28      12.300000   10.136364     32.00     34.00        35     37.00     33.00
+29       6.640000    7.245455     32.00     28.00        34     38.00     32.00
+30       7.500000    7.090909     30.00     33.00        34     39.00     31.00
+31       5.780000    7.627273     22.00     37.00        15     19.00     21.00
+32       6.060000    5.245455      8.00     26.00        20     27.50     18.00
+33       3.700000    5.545455     10.00     16.00        20     20.00     18.00
+34       8.400000    9.045455     11.00     20.00        22     26.00     23.00
+35       7.000000    8.181818     11.00     15.00        19     21.00     24.00
+36       4.040000    5.381818     13.00     21.00        22     25.00     22.00
+37       3.975000    4.822222     12.00     16.00        26     27.00     26.00
+38       4.440000    7.518182     14.00     10.00         7     12.00     13.00
+39       4.700000    4.937500     15.00     25.00        22     27.00     22.00
+40       4.220000    5.554545     16.00     14.00        23     36.00     32.00
+41       3.780000    4.854545     15.00     12.00        19     32.00     34.00
+42       4.120000    5.418182     20.00     15.00        23     25.00     28.00
+43       3.900000    4.050000      3.00      4.00         3      4.00      6.00
+44       5.340000    4.509091     10.00     22.00        10     20.00     13.00
+45       1.625000    2.910000      9.00     12.00         6      5.00      5.00
+46       2.540000    3.745455        NA      6.00         6      7.00     15.00
+47       4.400000    3.881818      2.00      4.00         5      5.00      6.00
+48       3.700000    3.381818      3.00      4.00         5      4.00      6.00
+49       2.820000    1.581818      5.00      4.00         5      5.00      4.00
+50       3.880000    4.281818      7.00     10.00         8     11.00     10.00
+51       2.900000    3.436364      7.00      8.00         7     14.00     14.00
+52       2.000000    1.627273        NA     10.00        10     12.00     10.00
+53       3.120000    2.636364      9.00      5.00         8     17.00     13.00
+54       2.420000    2.010000      8.00      6.00         8     14.00      9.00
+55       8.612500    6.775000     31.79     25.66     34.04        NA        NA
+56       8.290000    8.005556     33.89     26.22     31.43        NA        NA
+57       9.000000    6.981429     37.81     32.19     38.48        NA        NA
+58       8.686000    8.775000     41.10     32.48     29.02     24.42     24.16
+59       8.966000    8.237000     34.32     25.80     24.55     21.46     25.27
+60       9.992000    9.161000     30.13     30.03     24.42     28.21     27.12
+61       6.597500    6.333000     24.92     17.92     24.42        NA        NA
+62       4.820000    3.007000     13.25     13.20      26.8        NA        NA
+63       5.405000    4.717000     18.12     20.24     35.07        NA        NA
+64       5.092000    4.710000     28.93     20.03     22.12     21.91     18.47
+65       2.632000    2.925000     14.08     25.77      22.5     23.56     22.14
+66       9.152000    8.347000     32.16     27.55      22.5     27.53     23.34
+67       1.832500    1.676000      3.21      3.18      4.89        NA        NA
+68       2.853333    3.010000      6.28      5.62     12.31        NA        NA
+69       3.995000    3.566000      5.40      5.38     11.28        NA        NA
+70       2.174000    3.549000      9.69      4.04      5.33      8.26     28.50
+71       2.220000    3.270000      5.56      3.36      5.92      4.32      1.97
+72       1.974000    3.004000     11.23      5.91      7.56      7.16      3.72
+   Water_ml6 Water_ml7 Water_ml8 Water_ml9 Water_ml10 Water_ml11 Water_ml12
+1         NA     40.00     49.00        46         53      47.00      53.00
+2         NA     39.00     40.00        74         45      47.00      46.00
+3         NA     41.00     46.00        38         45      41.00      40.00
+4         NA     45.00     36.00        37         52      47.00      41.00
+5         NA     42.00     38.00        43         51      47.00      41.00
+6         NA     51.00     44.00        53         48      41.00      47.00
+7         NA     52.00     41.00        38         61      47.00      31.00
+8         NA     46.00     44.00        37         49      50.00      33.00
+9         NA     42.00     47.00        45         55      51.00      41.00
+10        NA     49.00     46.00        44         52      48.00      49.00
+11        NA     43.00     37.00        41         42      40.00      40.00
+12        NA     39.00     46.00        42         46      46.00      45.00
+13     74.01     46.08     40.02     44.52       50.7      36.38      32.79
+14     80.24     42.57     42.95     52.96      44.49      37.86      41.63
+15     85.13     41.93     43.57     50.52      50.81      40.00      45.78
+16        NA        NA     51.18     38.01      36.44      36.48      40.34
+17        NA        NA     44.11     33.12      33.47      31.60      30.76
+18        NA        NA     46.72      33.9      33.92      33.62      32.73
+19        NA     36.00     39.00        34         50      34.00      38.00
+20        NA     35.00     26.00        27         28      26.00      28.00
+21        NA     33.00     37.00        28         30      28.00      32.00
+22        NA     39.00     32.00        32         28      34.00      34.00
+23        NA     49.00     31.00        32         44      26.00      32.00
+24        NA     56.00     31.00        33         32      28.00      34.00
+25        NA     33.00     32.00        32         34      35.00      27.00
+26        NA     32.00     31.00        27         33      33.00      22.00
+27        NA     50.00     37.00        37         40      45.00      37.00
+28        NA     29.00     29.00        28         30      30.00      32.00
+29        NA     32.00     32.00        32         34      35.00      36.00
+30        NA     38.00     35.00        33         35      36.00      38.00
+31        NA     28.00     28.00        24         26      25.00      28.00
+32        NA     30.00     27.00        27         28      25.00      30.00
+33        NA     30.00     24.00        29         28      29.00      28.00
+34        NA     31.00     23.00        27         25      25.00      24.00
+35        NA     35.00     27.00        27         32      25.00      25.00
+36        NA     42.00     28.00        28         30      29.00      30.00
+37        NA     30.00     27.00        26         32      34.00      30.00
+38        NA     48.00     28.00        29         31      37.00      33.00
+39        NA     30.00     21.00        25         25      30.00      25.00
+40        NA     31.00     31.00        32         32      30.00      33.00
+41        NA     28.00     32.00        30         32      31.00      28.00
+42        NA     30.00     28.00        34         31      30.00      31.00
+43        NA     26.00     25.00        --         --      26.00      24.00
+44        NA     23.00     23.00        25         23      23.00      25.00
+45        NA     17.00     19.00        19         20      20.00      22.00
+46        NA     32.00     30.00        30         30      26.00      24.00
+47        NA     14.00     13.00        16         18      23.00      16.00
+48        NA     14.00     13.00        16         16      20.00      17.00
+49        NA      6.00      2.00         6         10       8.00      10.00
+50        NA     25.00     21.00        27         29      31.00      33.00
+51        NA     26.00     17.00        24         26      26.00      27.00
+52        NA     12.00      6.00        12         15      10.00      13.00
+53        NA     20.00     22.00        24         28      27.00      30.00
+54        NA     24.00     16.00        19         22      22.00      23.00
+55     72.97     28.76     27.91     31.93      32.16      32.14      26.78
+56     39.31     29.37     28.16     35.25      30.48      27.89      28.43
+57     37.69     32.00     35.88     41.91      31.89      36.89      35.22
+58        NA        NA     27.84     25.07      22.72      24.23      20.61
+59        NA        NA     27.14     28.04      22.07      25.66      21.71
+60        NA        NA     29.27     26.11      24.39      23.66      26.89
+61     32.40     21.65     23.22     27.81      12.87      15.43      25.05
+62     28.71     21.73     27.97     26.46      24.29      23.93      23.38
+63     30.68     23.73     24.42     33.68       20.1      26.82      24.62
+64        NA        NA     24.26     18.63      22.16      18.33      20.79
+65        NA        NA     30.65     20.67      22.52       9.13      34.92
+66        NA        NA     31.96     21.42      22.71      21.68      25.91
+67        NA     62.63     41.86     25.23       9.33       8.05      19.02
+68     30.98     25.58     23.03     31.39      27.52      24.81      23.06
+69     37.13     27.22     26.26     30.97      27.67      22.99      24.43
+70        NA        NA     17.21     23.14      25.86      14.63      21.07
+71        NA        NA     38.09     21.46      26.53      30.82      27.39
+72        NA        NA     27.79     16.91      18.36      22.50      20.63
+   Water_mlAVEwk1 Water_mlAVE Food1 Food2  Food3 Food4 Food5 Food6 Food7 Food8
+1         44.2000   46.272727  24.2 25.00  27.60 27.90 22.90    NA  25.2  32.9
+2         42.4000   45.727273  21.9 25.90  23.20 26.60 16.30    NA  26.0  31.3
+3         43.8000   42.727273  23.7 22.20  24.20 25.30 35.60    NA  23.7  35.6
+4         39.8000   41.545455  23.8 24.00  24.40 21.80 36.60    NA  27.7  30.8
+5         44.8000   44.181818  21.0 20.70 110.50 22.40 22.10    NA  22.9  22.6
+6         44.8000   46.181818  23.0 31.70  14.30 29.10 45.10    NA  30.0  32.4
+7         53.2500   48.300000  21.4 19.20     NA 24.90 26.40    NA  20.5  30.8
+8         52.2000   47.272727  21.1 22.60  20.40 23.30 47.80    NA  24.8  13.9
+9         46.4000   46.636364  25.3 26.70  26.60 28.90    NA    NA  25.7  43.7
+10        43.9060   46.139091  22.0 19.60  20.00 23.30 22.80    NA  19.3  35.0
+11        42.6000   41.454545  23.7 22.10  23.10 23.80 14.10    NA  24.0  26.9
+12        49.8000   46.636364  28.6 28.10  27.60 28.70 44.80    NA  20.6  51.4
+13        51.2300   45.541000  37.4 28.50  42.30    NA    NA 30.40  39.1  33.5
+14        55.2375   48.341000  31.0 28.80  28.90    NA    NA 30.60  31.7  28.8
+15        56.9225   50.030000  31.3 25.10  31.30    NA    NA 29.40  28.9  26.2
+16        43.7160   42.103000  26.6 24.50  30.70 20.90 26.00    NA    NA  30.1
+17        38.7120   36.662000  39.3 31.20  28.80 25.80 36.00    NA    NA  35.1
+18        53.3920   44.785000  27.3 26.20  29.10 22.50 27.90    NA    NA  46.4
+19        40.5000   39.409091  22.0 26.70  19.90 25.70 49.10    NA  23.7  41.8
+20        31.8000   29.909091  20.5 21.80  20.50 21.50 46.20    NA  23.3  38.5
+21        33.6000   32.363636  19.9 22.10  24.40 17.40 63.50    NA  19.9  46.3
+22        26.0000   29.909091  19.0 10.00  26.90 23.70 41.80    NA  21.5  33.9
+23        32.6000   34.272727  15.8 23.40  11.30 21.60 46.60    NA  24.1  15.8
+24        30.4000   33.272727  12.3 21.30  25.30 19.80 47.40    NA  22.3  37.9
+25        32.6000   32.363636  16.1 18.90  16.90 22.90 42.90    NA  21.7  37.8
+26        30.4000   30.000000  17.5 19.50  19.60 22.10 26.20    NA  16.8  23.1
+27        39.6000   40.363636  19.9 25.10  23.10 22.00 55.30    NA  21.0  48.2
+28        34.2000   31.727273  17.9 16.20  15.80 18.00 34.00    NA  16.3  45.1
+29        32.8000   33.181818  21.2 21.20  18.40 25.60 39.60    NA  20.8  38.5
+30        33.4000   34.727273    NA 20.30  16.00 20.50 45.40    NA  21.4  44.8
+31        22.8000   24.818182  17.1 14.80  13.40 16.10 52.00    NA  20.1  44.9
+32        19.9000   24.227273  15.0 13.60  15.60 17.20 67.90    NA  19.4  45.7
+33        16.8000   22.909091  12.3 11.20   7.10  8.10 87.10    NA  18.0    NA
+34        20.4000   23.363636  15.6 17.10  18.80 19.20 59.50    NA  22.1  43.5
+35        18.0000   23.727273  10.8 13.50  15.20 16.30 50.10    NA  21.7  32.2
+36        20.6000   26.363636  11.6 15.90  13.80 17.20 78.30    NA  20.9  43.7
+37        21.4000   26.000000  12.0 12.50  15.70 16.50 74.30    NA  19.3  26.9
+38        11.2000   23.818182  14.4  7.50   4.50  7.20 54.80    NA  20.5  52.1
+39        22.2000   24.272727  15.8 18.80  14.90 20.20 87.60    NA  20.5  80.8
+40        24.2000   28.181818  16.1 11.10  14.10 15.60 51.10    NA  18.7  48.7
+41        22.4000   26.636364   9.7 10.70  11.60  8.60 54.90    NA  18.7  48.2
+42        22.2000   26.818182  15.3 11.90     NA    NA 81.50    NA  16.5  79.9
+43         4.0000   13.444444  13.0  9.10   3.00  4.30 68.70    NA   8.8    NA
+44        15.0000   19.727273  15.0 12.20   9.30 12.80 84.20    NA  16.1  59.9
+45         7.4000   14.000000    NA 12.20     NA  5.20 33.40    NA  10.8  27.9
+46         8.5000   20.600000  11.3  7.20  15.20  5.80 85.10    NA  17.4  65.4
+47         4.4000   11.090909  15.3  5.50   6.70  3.60 90.30    NA   8.7  74.9
+48         4.4000   10.727273  10.0  4.50   3.60  2.60 11.60    NA   8.4  23.4
+49         4.6000    5.909091  11.5  7.30   5.60 -0.20 84.20    NA   3.8  61.9
+50         9.2000   19.272727   9.3  7.10   0.70  6.00 77.30    NA  11.5  58.5
+51        10.0000   17.818182  11.0  6.20   1.90  6.30 18.70    NA  14.2  27.7
+52        10.5000   11.000000   9.7  6.20   4.30  3.20 75.60    NA   6.5  65.3
+53        10.4000   18.454545  10.0  6.80   6.00  5.50 78.60    NA  18.6  64.0
+54         9.0000   15.545455  12.7  8.90   7.40  3.80    NA    NA  23.2    NA
+55        41.1150   34.414000  22.4 28.50  32.30    NA    NA 36.20  31.7  29.9
+56        32.7125   31.043000  32.9 25.40  26.90    NA    NA 36.50  32.0  30.3
+57        36.5425   35.996000  30.7 28.20  36.40    NA    NA 32.30  34.2  29.1
+58        30.2360   27.165000  30.4 30.20  32.40 21.60 27.50    NA    NA  32.8
+59        26.2800   25.602000  26.6 26.60  26.30 24.90 27.00    NA    NA  40.6
+60        27.9820   27.023000  27.8 25.50  23.10 27.20 23.90    NA    NA  29.5
+61        24.9150   22.569000  29.6 18.50  25.50    NA    NA 32.20  18.8  25.7
+62        20.4900   22.972000  28.1 30.00  30.30    NA    NA 36.80  36.7  38.0
+63        26.0275   25.748000  23.2 21.10  22.80    NA    NA 33.90  32.4  30.5
+64        22.2920   21.563000  24.0 21.20  21.70 25.50 25.10    NA    NA  41.7
+65        21.6100   22.594000  22.8 24.50  34.40 36.20 27.50    NA    NA  52.1
+66        26.6160   25.676000  27.8 27.30  25.40 24.30 23.10    NA    NA  34.4
+67         3.7600   19.711111  13.1  8.43  11.00    NA    NA  8.33  19.0  33.0
+68        13.7975   21.058000  15.2  8.73   9.38    NA    NA 34.90    NA  25.6
+69        14.7975   21.873000  16.6  6.80     NA    NA    NA 33.70  25.7  21.9
+70        11.1640   15.773000  20.6  8.39   6.12  7.51 20.50    NA    NA  49.9
+71         4.2260   16.542000  18.8  6.40   2.74  1.80  2.75    NA    NA  40.3
+72         7.1160   14.177000  20.3  8.74   7.63  1.22  0.92    NA    NA  62.7
+   Food9 Food10 Food11 Food12 FoodAVEwk1  FoodAVE  Dose1  Dose2  Dose3  Dose4
+1   21.0     NA  27.60 113.10   25.52000 34.74000  0.000  0.000  0.000  0.000
+2   26.5     NA  30.00 108.20   22.78000 33.59000  0.000  0.000  0.000  0.000
+3   19.8     NA  25.40 116.20   26.20000 35.17000  0.000  0.000  0.000  0.000
+4   37.3     NA  31.10 108.70   26.11200 36.61600  0.000  0.000  0.000  0.000
+5   36.8     NA  25.50 114.00   39.34200 41.85400  0.000  0.000  0.000  0.000
+6   22.1     NA  35.30 111.30   28.63400 37.42700  0.000  0.000  0.000  0.000
+7   36.2     NA  16.50     NA   22.95250 24.47750  0.000  0.000  0.000  0.000
+8   28.4     NA  22.00 110.20   27.02600 33.43700  0.000  0.000  0.000  0.000
+9   21.4     NA  31.20 108.60   26.87250 37.57333  0.000  0.000  0.000  0.000
+10  29.1     NA  24.80 115.70   21.54600 33.16300  0.000  0.000  0.000  0.000
+11  35.2     NA  23.90 121.90   21.35800 33.86600  0.000  0.000  0.000  0.000
+12  23.9     NA  27.10 122.30   31.58200 40.32300  0.000  0.000  0.000  0.000
+13  37.6  58.88  25.87  31.84   34.63500 36.53600  0.000  0.000  0.000  0.000
+14  36.2  26.89  33.59  25.79   29.84250 30.23200  0.000  0.000  0.000  0.000
+15  26.4  23.14  25.70  28.93   29.26750 27.63500  0.000  0.000  0.000  0.000
+16  24.4  23.85  24.78  25.56   25.72800 25.73400  0.000  0.000  0.000  0.000
+17  39.7  32.02  31.65  24.16   32.21400 32.36500  0.000  0.000  0.000  0.000
+18  33.6  37.32  35.68  35.17   26.62000 32.13400  0.000  0.000  0.000  0.000
+19  35.1     NA  26.20 106.10   28.68000 37.63000 10.200 15.000 13.500 11.250
+20  46.3     NA  25.30     NA   26.10000 29.32222  8.100 16.500  6.900  8.700
+21  39.7     NA  25.40 111.30   29.46000 38.99000  9.000 16.200  8.100  9.000
+22  40.9     NA  30.30 105.20   24.27000 35.31400  4.500  8.400  8.400  9.900
+23  38.8     NA  27.00  99.80   23.73200 32.41600 10.500  9.900  9.600 10.500
+24  40.5     NA  30.40 102.80   25.20800 35.99100  9.000  9.600  9.600  9.000
+25  43.5     NA  18.40 107.10   23.54400 34.62300  8.400 10.500  9.600 10.800
+26  46.4     NA  22.30 104.70   20.97200 31.81300  8.400  9.300  9.000 10.200
+27  30.8     NA  26.20     NA   29.07000 30.17333 10.200 12.600 10.800 15.000
+28  51.3     NA  22.70 120.90   20.36200 35.80900  9.600 10.200 10.500 11.100
+29  44.4     NA  24.30 122.00   25.21200 37.61000  9.600  8.400 10.200 11.400
+30  38.5     NA  24.50 126.40   25.56500 39.76111  9.000  9.900 10.200 11.700
+31  49.3     NA  22.80     NA   22.68000 27.83333 22.000 37.000 15.000 19.000
+32  46.5     NA  22.80 100.60   25.86000 36.43000  8.000 26.000 20.000 27.500
+33  40.8     NA  25.30 101.30   25.16000 34.57778 10.000 16.000 20.000 20.000
+34  53.3     NA  24.20 106.60   26.03000 37.98300 11.000 20.000 22.000 26.000
+35  49.9     NA  23.80 108.60   21.15600 34.20000 11.000 15.000 19.000 21.000
+36  46.7     NA  21.30 105.20   27.34000 37.45000 13.000 21.000 22.000 25.000
+37  45.1     NA  23.20 119.80   26.19600 36.53700 12.000 16.000 26.000 27.000
+38  49.2     NA  21.10     NA   17.68200 25.71000 14.000 10.000  7.000 12.000
+39  53.8     NA  21.70 117.50   31.44400 45.14900 15.000 25.000 22.000 27.000
+40  47.9     NA  21.80 114.20   21.60600 35.92900 16.000 14.000 23.000 36.000
+41  43.9     NA  23.10 120.00   19.10600 34.94000 15.000 12.000 19.000 32.000
+42  43.8     NA  21.20     NA   36.26000 38.58429 20.000 15.000 23.000 25.000
+43    NA     NA     NA     NA   19.62000 17.81667  9.900 13.200  9.900 13.200
+44  46.7     NA  28.00 112.80   26.70000 39.70000 33.000 72.600 33.000 66.000
+45  64.1     NA  16.90     NA   16.90667 24.35000 29.700 39.600 19.800 16.500
+46  42.0     NA  29.50 112.70   24.92800 39.16100  0.000 19.800 19.800 23.100
+47  72.0     NA  17.00 116.60   24.26400 41.04900  6.600 13.200 16.500 16.500
+48  74.1     NA  13.30     NA    6.47400 16.83444  9.900 13.200 16.500 13.200
+49  95.2     NA  16.40     NA   21.70000 31.76222 16.500 13.200 16.500 16.500
+50  56.5     NA  18.50 107.30   20.10000 35.27300 23.100 33.000 26.400 36.300
+51  61.0     NA  20.10 123.30    8.82000 29.03400 23.100 26.400 23.100 46.200
+52  86.5     NA  33.00 122.50   19.81600 41.27800  0.000 33.000 33.000 39.600
+53  60.8     NA  12.60     NA   21.36200 29.19556 29.700 16.500 26.400 56.100
+54  61.3     NA  14.40  18.20    8.20500 18.74500 26.400 19.800 26.400 46.200
+55  32.2  36.31  30.95  34.52   29.86750 31.50500  9.537  7.698 10.210  0.000
+56  33.2  36.11  27.50  30.04   30.41500 31.08400 10.170  7.866  9.429  0.000
+57  26.1  27.56  29.79  28.07   31.89500 30.24200 11.340  9.657 11.540  0.000
+58  31.5  31.30  30.93  28.01   28.39200 29.64600 12.330  9.744  8.706  7.326
+59  38.0  27.05  23.36  25.23   26.25800 28.55000 10.300  7.740  7.365  6.438
+60  29.0  23.76  24.99  28.15   25.49600 26.28600  9.039  9.009  7.326  8.463
+61  26.0  25.86  20.55  25.87   26.45500 24.86400 24.920 17.920 24.420     NA
+62  37.6  37.27  35.29  31.44   31.32750 34.15400 13.250 13.200 26.800     NA
+63  37.4  32.56  38.52  29.34   25.24000 30.16000 18.120 20.240 35.070     NA
+64  26.7  31.47  30.72  33.56   23.47600 28.15200 28.930 20.030 22.120 21.910
+65  23.8  35.69   7.86  40.75   29.08200 30.56000 14.080 25.770 22.500 23.560
+66  23.1  26.82  27.75  27.39   25.57800 26.73900 32.160 27.550 22.500 27.530
+67  25.8  15.18  20.80  31.84   10.20000 18.63600 10.590 10.490 16.140  0.000
+68  33.0  27.51  26.92  23.99   17.03750 22.78778 20.720 18.550 40.620  0.000
+69  28.3  29.47  20.77  28.47   19.03667 23.53444 17.820 17.750 37.220  0.000
+70  29.5  40.97  34.39  57.86   12.63000 27.58400 31.980 13.330 17.590 27.260
+71  27.4  38.95  37.89  41.62    6.50600 21.86200 18.350 11.090 19.540 14.260
+72  31.8  33.09  32.33  32.93    7.76200 23.16000 37.060 19.500 24.950 23.630
+    Dose5   Dose6   Dose7   Dose8   Dose9 Dose10  Dose11  Dose12 DoseAVEwk1
+1   0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+2   0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+3   0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+4   0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+5   0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+6   0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+7   0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+8   0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+9   0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+10  0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+11  0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+12  0.000      NA   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+13  0.000   0.000   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+14  0.000   0.000   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+15  0.000   0.000   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+16  0.000   0.000   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+17  0.000   0.000   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+18  0.000   0.000   0.000   0.000   0.000  0.000   0.000   0.000     0.0000
+19 10.800      NA  10.800  11.700  10.200 15.000  10.200  11.400    12.1500
+20  7.500      NA  10.500   7.800   8.100  8.400   7.800   8.400     9.5400
+21  8.100      NA   9.900  11.100   8.400  9.000   8.400   9.600    10.0800
+22  7.800      NA  11.700   9.600   9.600  8.400  10.200  10.200     7.8000
+23  8.400      NA  14.700   9.300   9.600 13.200   7.800   9.600     9.7800
+24  8.400      NA  16.800   9.300   9.900  9.600   8.400  10.200     9.1200
+25  9.600      NA   9.900   9.600   9.600 10.200  10.500   8.100     9.7800
+26  8.700      NA   9.600   9.300   8.100  9.900   9.900   6.600     9.1200
+27 10.800      NA  15.000  11.100  11.100 12.000  13.500  11.100    11.8800
+28  9.900      NA   8.700   8.700   8.400  9.000   9.000   9.600    10.2600
+29  9.600      NA   9.600   9.600   9.600 10.200  10.500  10.800     9.8400
+30  9.300      NA  11.400  10.500   9.900 10.500  10.800  11.400    10.0200
+31 21.000      NA  28.000  28.000  24.000 26.000  25.000  28.000    22.8000
+32 18.000      NA  30.000  27.000  27.000 28.000  25.000  30.000    19.9000
+33 18.000      NA  30.000  24.000  29.000 28.000  29.000  28.000    16.8000
+34 23.000      NA  31.000  23.000  27.000 25.000  25.000  24.000    20.4000
+35 24.000      NA  35.000  27.000  27.000 32.000  25.000  25.000    18.0000
+36 22.000      NA  42.000  28.000  28.000 30.000  29.000  30.000    20.6000
+37 26.000      NA  30.000  27.000  26.000 32.000  34.000  30.000    21.4000
+38 13.000      NA  48.000  28.000  29.000 31.000  37.000  33.000    11.2000
+39 22.000      NA  30.000  21.000  25.000 25.000  30.000  25.000    22.2000
+40 32.000      NA  31.000  31.000  32.000 32.000  30.000  33.000    24.2000
+41 34.000      NA  28.000  32.000  30.000 32.000  31.000  28.000    22.4000
+42 28.000      NA  30.000  28.000  34.000 31.000  30.000  31.000    22.2000
+43 19.800      NA  85.800  82.500      NA     NA  85.800  79.200    13.2000
+44 42.900      NA  75.900  75.900      NA     NA  75.900  82.500    49.5000
+45 16.500      NA  56.100  62.700  62.700 66.000  66.000  72.600    24.4200
+46 49.500      NA 105.600  99.000  99.000 99.000  85.800  79.200    22.4400
+47 19.800      NA  46.200  42.900  52.800 59.400  75.900  52.800    14.5200
+48 19.800      NA  46.200  42.900  52.800 52.800  66.000  56.100    14.5200
+49 13.200      NA  19.800   6.600  19.800 33.000  26.400  33.000    15.1800
+50 33.000      NA  82.500  69.300  89.100 95.700 102.300 108.900    30.3600
+51 46.200      NA  85.800  56.100  79.200 85.800  85.800  89.100    33.0000
+52 33.000      NA  39.600  19.800  39.600 49.500  33.000  42.900    27.7200
+53 42.900      NA  66.000  72.600  79.200 92.400  89.100  99.000    34.3200
+54 29.700      NA  79.200  52.800  62.700 72.600  72.600  75.900    29.7000
+55  0.000  21.891   8.628   8.373   9.579  9.648   9.642   8.034     8.2230
+56  0.000  11.793   8.811   8.448  10.575  9.144   8.367   8.529     6.5425
+57  0.000  11.307   9.600  10.764  12.573  9.567  11.067  10.570     7.3085
+58  7.248   0.000   0.000   8.352   7.521  6.816   7.269   6.183     7.5590
+59  7.581   0.000   0.000   8.142   8.412  6.621   7.698   6.513     6.5700
+60  8.136   0.000   0.000   8.781   7.833  7.317   7.098   8.067     6.9955
+61     NA  32.400  21.650  23.220  27.810 12.870  15.430  25.050    24.9150
+62     NA  28.710  21.730  27.970  26.460 24.290  23.930  23.380    20.4900
+63     NA  30.680  23.730  24.420  33.680 20.100  26.820  24.620    26.0275
+64 18.470      NA      NA  24.260  18.630 22.160  18.330  20.790    22.2920
+65 22.140      NA      NA  30.650  20.670 22.520   9.130  34.920    21.6100
+66 23.340      NA      NA  31.960  21.420 22.710  21.680  25.910    26.6160
+67  0.000   0.000 206.680 138.140  83.259 30.790  26.565  62.770     6.2040
+68  0.000 102.230  84.414  75.999 103.590 90.820  81.873  76.100    30.3545
+69  0.000 122.530  89.826  86.658 102.200 91.310  75.867  80.620    32.5545
+70 94.050   0.000   0.000  56.793  76.362 85.340  48.279  69.530    30.7010
+71  6.501   0.000   0.000 125.700  70.818 87.550 101.710  90.390    11.6215
+72 12.280   0.000   0.000  91.707  55.803 60.590  74.250  68.080    19.5690
+     DoseAVE
+1   0.000000
+2   0.000000
+3   0.000000
+4   0.000000
+5   0.000000
+6   0.000000
+7   0.000000
+8   0.000000
+9   0.000000
+10  0.000000
+11  0.000000
+12  0.000000
+13  0.000000
+14  0.000000
+15  0.000000
+16  0.000000
+17  0.000000
+18  0.000000
+19 11.822730
+20  8.972727
+21  9.709091
+22  8.972727
+23 10.281820
+24  9.981818
+25  9.709091
+26  9.000000
+27 12.109090
+28  9.518182
+29  9.954545
+30 10.418180
+31 24.818180
+32 24.227270
+33 22.909090
+34 23.363640
+35 23.727270
+36 26.363640
+37 26.000000
+38 23.818180
+39 24.272730
+40 28.181820
+41 26.636360
+42 26.818180
+43 44.366670
+44 65.100000
+45 46.200000
+46 67.980000
+47 36.600000
+48 35.400000
+49 19.500000
+50 63.600000
+51 58.800000
+52 36.300000
+53 60.900000
+54 51.300000
+55 10.324200
+56  9.312900
+57 10.798800
+58  8.149500
+59  7.680600
+60  8.106900
+61 22.569000
+62 22.972000
+63 25.748000
+64 21.563000
+65 22.594000
+66 25.676000
+67 65.046670
+68 69.491400
+69 72.180900
+70 52.050900
+71 54.588600
+72 46.784100</code></pre>
+</div>
+</div>
+</section>
+<section id="create-a-subset-dataframe-for-each-group-to-ease-making-histogramsnormal-curves-and-qq-plots-by-group." class="level2">
+<h2 class="anchored" data-anchor-id="create-a-subset-dataframe-for-each-group-to-ease-making-histogramsnormal-curves-and-qq-plots-by-group.">4. Create a “subset” dataframe for each group to ease making histograms/normal curves and QQ plots by group.</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>control_hessingerdata<span class="ot">&lt;-</span><span class="fu">subset</span>(hessingerdata, hessingerdata<span class="sc">$</span>Group<span class="sc">==</span><span class="st">"control"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>APlow_hessingerdata<span class="ot">&lt;-</span><span class="fu">subset</span>(hessingerdata, hessingerdata<span class="sc">$</span>Group<span class="sc">==</span><span class="st">"APlow"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>APmed_hessingerdata<span class="ot">&lt;-</span><span class="fu">subset</span>(hessingerdata, hessingerdata<span class="sc">$</span>Group<span class="sc">==</span><span class="st">"APmed"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>APhigh_hessingerdata<span class="ot">&lt;-</span><span class="fu">subset</span>(hessingerdata, hessingerdata<span class="sc">$</span>Group<span class="sc">==</span><span class="st">"APhigh"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>DAPlow_hessingerdata<span class="ot">&lt;-</span><span class="fu">subset</span>(hessingerdata, hessingerdata<span class="sc">$</span>Group<span class="sc">==</span><span class="st">"DAPlow"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>DAPmed_hessingerdata<span class="ot">&lt;-</span><span class="fu">subset</span>(hessingerdata, hessingerdata<span class="sc">$</span>Group<span class="sc">==</span><span class="st">"DAPmed"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>DAPhigh_hessingerdata<span class="ot">&lt;-</span><span class="fu">subset</span>(hessingerdata, hessingerdata<span class="sc">$</span>Group<span class="sc">==</span><span class="st">"DAPhigh"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>How many subjects are missing data from a specific column? (na = ‘missing’). Make a variable that returns 1 (TRUE) if data is missing: watermazedata<span class="math inline">\(Duration.Spatial1.Missing &lt;- is.na(watermazedata\)</span>Duration.Spatial1)</p>
+<p>How many subjects are missing from Duration.Spatial1 data? sum(watermazedata$Duration.Spatial1.Missing)</p>
+<p>1 = missing, 0 = there, so mean will tell us proportion of cases missing data in that variable</p>
+<p>….or simply calculate this WITHOUT making a new variable:</p>
+</section>
+<section id="running-code" class="level2">
+<h2 class="anchored" data-anchor-id="running-code">Running Code</h2>
+<p>When you click the <strong>Render</strong> button a document will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>You can add options to executable code like this</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>The <code>echo: false</code> option disables the printing of code (only output is displayed).</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
